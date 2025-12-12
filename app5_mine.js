@@ -1,3 +1,5 @@
+"use strict";
+
 const express = require("express");
 const app = express();
 
@@ -43,6 +45,8 @@ let station_keiyo_line = [
   { id:17, code:"JE17", name:"千葉みなと駅"},
   { id:18, code:"JE18", name:"蘇我駅"},
 ];
+
+
 
 app.get("/hello1", (req, res) => {
   const message1 = "Hello world";
@@ -136,5 +140,21 @@ app.get("/keiyo2/:number", (req, res) => {
   const detail = station2[ number ];
   res.render('keiyo2_detail', {data: detail} );
 });
+
+
+
+
+
+
+let battle_data = [
+  { id:1, name:"スライム", hp:7, attack:3, defence:2, skill:"", ex:1},
+  { id:2, name:"ドラキー", hp:5, attack:4, defence:3, skill:"", ex:2},
+  { id:3, name:"竜王", hp:255, attack:127, defence:255, skill:"", ex:0},
+];
+
+
+
+
+
 
 app.listen(8080, () => console.log("Example app listening on port 8080!"));
