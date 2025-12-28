@@ -550,7 +550,7 @@ EJSファイル側では，ソースコード\ref{ex1}のように \texttt{class
 // フォームからの入力を数値に変換
 let priceVal = parseInt(req.body.price);
 
-// 数値でない場合（空欄など）は0にする
+// 数値でない場合（空欄など）は０にする
 if (isNaN(priceVal)) {
     priceVal = 0;
 }
@@ -560,9 +560,9 @@ if (isNaN(priceVal)) {
 誤操作によるデータの削除を防ぐため，ソースコード\ref{src:js_confirm}のように，削除実行ボタンに JavaScript の \texttt{confirm()} メソッドを組み込んだ．
 これにより，ボタンクリック時にブラウザ標準の確認ダイアログが表示され，ユーザが「OK」を選択した場合のみ処理が実行され，「キャンセル」を選択した場合は処理が中断される安全な仕様とした．
 
-\begin{lstlisting}[caption=削除ボタンへの確認アラート実装, label=src:js_confirm]
-<input type="submit" value="削除する" class="delete"
-       onclick="return confirm('本当に削除しますか？');">
+\begin{lstlisting}[caption=削除ボタンへの確認アラート実装, label=src:js_confirm, escapechar=\@]
+<input type="submit" value="@削除する@" class="delete"
+       onclick="return confirm('@本当に削除しますか？@');">
 \end{lstlisting}
 
 
