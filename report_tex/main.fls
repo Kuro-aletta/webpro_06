@@ -256,6 +256,10 @@ INPUT ./fig_web/wallet_delete.png
 INPUT ./fig_web/wallet_delete.png
 INPUT ./fig_web/wallet_delete.png
 INPUT extractbb -B cropbox -O fig_web/wallet_delete.png
+INPUT ./fig_web/wallet_delete2.png
+INPUT ./fig_web/wallet_delete2.png
+INPUT ./fig_web/wallet_delete2.png
+INPUT extractbb -B cropbox -O fig_web/wallet_delete2.png
 INPUT ./fig_web/wallet_delete_fin.png
 INPUT ./fig_web/wallet_delete_fin.png
 INPUT ./fig_web/wallet_delete_fin.png

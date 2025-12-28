@@ -9,16 +9,16 @@
 \contentsline {subsection}{\numberline {2.5}データの編集}{4}{}
 \contentsline {subsection}{\numberline {2.6}データの追加}{7}{}
 \contentsline {subsection}{\numberline {2.7}データの削除}{10}{}
-\contentsline {section}{\numberline {3}管理者向けドキュメント}{12}{}
-\contentsline {subsection}{\numberline {3.1}インストール方法}{12}{}
-\contentsline {subsubsection}{\numberline {3.1.1}システム本体の準備}{12}{}
-\contentsline {subsubsection}{\numberline {3.1.2}ライブラリのインストール}{12}{}
+\contentsline {section}{\numberline {3}管理者向けドキュメント}{13}{}
+\contentsline {subsection}{\numberline {3.1}インストール方法}{13}{}
+\contentsline {subsubsection}{\numberline {3.1.1}システム本体の準備}{13}{}
+\contentsline {subsubsection}{\numberline {3.1.2}ライブラリのインストール}{13}{}
 \contentsline {subsection}{\numberline {3.2}起動方法}{13}{}
-\contentsline {subsection}{\numberline {3.3}起動できない場合}{13}{}
-\contentsline {subsubsection}{\numberline {3.3.1}ライブラリが見つからない場合}{13}{}
-\contentsline {subsubsection}{\numberline {3.3.2}ポート番号が既に使用されている場合}{13}{}
+\contentsline {subsection}{\numberline {3.3}起動できない場合}{14}{}
+\contentsline {subsubsection}{\numberline {3.3.1}ライブラリが見つからない場合}{14}{}
+\contentsline {subsubsection}{\numberline {3.3.2}ポート番号が既に使用されている場合}{14}{}
 \contentsline {subsection}{\numberline {3.4}終了方法}{14}{}
-\contentsline {subsection}{\numberline {3.5}分かっている不具合・制限事項}{14}{}
+\contentsline {subsection}{\numberline {3.5}分かっている不具合・制限事項}{15}{}
 \contentsline {section}{\numberline {4}開発者向けドキュメント}{15}{}
 \contentsline {subsection}{\numberline {4.1}概要}{15}{}
 \contentsline {subsection}{\numberline {4.2}開発環境}{15}{}
@@ -40,4 +40,5 @@
 \contentsline {subsubsection}{\numberline {4.7.2}CSSによるデザインの管理}{21}{}
 \contentsline {subsubsection}{\numberline {4.7.3}入力補助のためのsmallタグ}{22}{}
 \contentsline {subsubsection}{\numberline {4.7.4}数値計算と入力値の検証}{22}{}
-\contentsline {section}{\numberline {5}おわりに}{22}{}
+\contentsline {subsubsection}{\numberline {4.7.5}JavaScript による送信確認アラート}{22}{}
+\contentsline {section}{\numberline {5}おわりに}{23}{}

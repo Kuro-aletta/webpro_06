@@ -1,10 +1,10 @@
 # Fdb version 4
-["dvipdf"] 1766928057.23859 "main.dvi" "main.pdf" "main" 1766928063.47414 0
-  "main.dvi" 1766928057.18674 72472 0dc21464b33ff0328e07ff72e8574734 "latex"
+["dvipdf"] 1766930189.26799 "main.dvi" "main.pdf" "main" 1766930195.75503 0
+  "main.dvi" 1766930189.21556 74220 52e97500e353782c9ebf28578fe53d42 "latex"
   (generated)
   "main.pdf"
   (rewritten before read)
-["latex"] 1766928053.25452 "main.tex" "main.dvi" "main" 1766928063.47283 0
+["latex"] 1766930185.01682 "main.tex" "main.dvi" "main" 1766930195.7533 0
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tctt1095.tfm" 1136768653 1536 52374f37d7a013fe5a15c958e7ebe485 ""
@@ -90,7 +90,8 @@
   "fig_web/wallet_add_change.png" 1766908239.82875 159968 a102f3fcb8d784a43a16d8f55c49bb63 ""
   "fig_web/wallet_add_confirm.png" 1766908239.93559 242263 9a0d502968b8ac21b2a8a259a86d9cd7 ""
   "fig_web/wallet_add_fin.png" 1766908240.07584 372093 f19a826dd9d6c527b42add8531541302 ""
-  "fig_web/wallet_delete.png" 1766911084.74748 285992 0415ca453ac76f31578e64d96b435254 ""
+  "fig_web/wallet_delete.png" 1766929620.0288 265880 704d8cf2cb3d60933717ec1aab2e8d75 ""
+  "fig_web/wallet_delete2.png" 1766929620.3988 208215 abd80dfce5e16ff867912807d5aebdf9 ""
   "fig_web/wallet_delete_confirm.png" 1766911084.64225 242393 873a58653ae99a32256927c9fe9e3304 ""
   "fig_web/wallet_delete_fin.png" 1766908240.53276 299329 537e4a5e68f652dc3aa494f1e1259978 ""
   "fig_web/wallet_detail.png" 1766908238.85757 240925 23f47a5d36e4a5806636264f3a2c322d ""
@@ -104,10 +105,10 @@
   "fig_web/wallet_go_to_edit.png" 1766908238.96622 257871 e479a975280b9ffaf7e4ffcdbbb1e0ca ""
   "fig_web/wallet_list.png" 1766908238.75052 204595 4f055d8f7ddfe96f51188e61409cd1db ""
   "jex.cls" 1764220180.59609 29715 46896ad0734c07a6d8a549e6f6d54e90 ""
-  "main.aux" 1766928057.18389 9812 3be912929c04960eed708327258ddade "latex"
+  "main.aux" 1766930189.21247 10270 adc3cb1c30201fc10e7ccdf24ebbd2eb "latex"
   "main.tex" 1766927415.31294 2084 a10c30c43e09fa57db7bbed22c6d5ce9 ""
-  "main.toc" 1766928057.18668 3404 341800ed81ebe18370c706ab80a42028 "latex"
-  "web.tex" 1766928047.47184 32774 ecfc9e0e561af661f8c025579b6d304e ""
+  "main.toc" 1766930189.21551 3505 4c69cf9263555dafba71b2dff6ad4ba4 "latex"
+  "web.tex" 1766930175.16948 33957 d6249fe2d15e505496542dd27fa53199 ""
   (generated)
   "main.aux"
   "main.dvi"

@@ -200,6 +200,14 @@ Webブラウザのアドレスバー（図\ref{fig:URL}）に \url{http://localh
         \label{fig:delete}
         \end{center}
         \end{figure}
+    \item \textbf{本当に削除してよければ}「OK」を押す（図\ref{fig:delete2}）．これ以降，データの復元ができなくなる．削除をしない場合は「キャンセル」を押す．
+        \begin{figure}[H]
+        \begin{center}
+        \includegraphics[width=13cm]{fig_web/wallet_delete2.png}
+        \caption{削除の最終確認}
+        \label{fig:delete2}
+        \end{center}
+        \end{figure}
     \item データが削除され，一覧画面へ戻る（図\ref{fig:delete_fin}）．一覧表示画面からは削除した項目が無くなっている．
         \begin{figure}[H]
         \begin{center}
@@ -223,7 +231,7 @@ $ git clone https://github.com/Kuro-aletta/webpro_06.git
 \subsubsection{ライブラリのインストール}
 本システムはNode.js上で動作し，ExpressおよびEJSパッケージを使用する．
 ターミナルを開き，システムを配置したディレクトリへ移動した後，ソースコード\ref{cmd:install}のコマンドを実行して必要なライブラリをインストールする．
-\clearpage
+
 \begin{lstlisting}[caption=ライブラリのインストール, label=cmd:install]
 $ npm install
 \end{lstlisting}
@@ -252,7 +260,7 @@ Webブラウザで以下のURLにアクセスして動作を確認する．
 起動時に \texttt{Error: listen EADDRINUSE: address already in use :::8080} と表示される場合は，既に別のプロセスが8080番ポートを使用している．
 これは多くの場合，前回のサーバ起動時に正しく終了できず，バックグラウンドでプロセスが動作し続けていることに起因する．
 この場合，以下の手順でプロセスを特定し，停止させる必要がある．
-\clearpage
+
 \begin{enumerate}
     \item ポート8080を使用しているプロセスのID（PID）を特定する（ソースコード\ref{cmd:lsof}）．
 \begin{lstlisting}[caption=PIDの確認, label=cmd:lsof]
@@ -280,7 +288,7 @@ $ kill -9 <PID>
 
 
 
-\clearpage
+
 \section{開発者向けドキュメント}
 \subsection{概要}
 本システムは，サーバサイドJavaScript実行環境であるNode.jsおよびWebフレームワークExpressを用いて構築されたWebアプリケーションである．
@@ -548,6 +556,14 @@ if (isNaN(priceVal)) {
 }
 \end{lstlisting}
 
+\subsubsection{JavaScript による送信確認アラート}
+誤操作によるデータの削除を防ぐため，ソースコード\ref{src:js_confirm}のように，削除実行ボタンに JavaScript の \texttt{confirm()} メソッドを組み込んだ．
+これにより，ボタンクリック時にブラウザ標準の確認ダイアログが表示され，ユーザが「OK」を選択した場合のみ処理が実行され，「キャンセル」を選択した場合は処理が中断される安全な仕様とした．
+
+\begin{lstlisting}[caption=削除ボタンへの確認アラート実装, label=src:js_confirm]
+<input type="submit" value="削除する" class="delete"
+       onclick="return confirm('本当に削除しますか？');">
+\end{lstlisting}
 
 
 
