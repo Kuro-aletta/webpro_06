@@ -1,0 +1,46 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>成績表</title>
+  <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+  <h2>成績表</h2>
+
+  <p>
+    <a href="/result/add">新規科目を追加する</a>
+  </p>
+
+  <table>
+    <tr><th>セメスタ</th><th>科目名</th><th>成績</th></tr>
+      
+    <% let number = 0 %>
+    <% for( let row of data ) { %>
+      <tr>
+        <td><%= row.semester %>S</td>
+        <td><a href="/result/detail/<%= number %>">
+          <% if (row.name == "") { %>
+            <small>（科目名を設定してください）</small>
+          <% } else { %>
+            <%= row.name %>
+          <% } %>
+        </a></td>
+        <td>
+          <% if (row.grade == "") { %>
+            -
+          <% } else { %>
+            <%= row.grade %>
+          <% } %>
+        </td>
+      </tr>
+      <% number += 1 %>
+    <% } %>
+      
+  </table>
+
+  <br><hr>
+  <a href="/">トップページへ</a>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>教員一覧</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <h2>教員一覧</h2>
+  
+    <p>
+        <a href="/teacher/add">新規教員を追加する</a>
+    </p>
+
+    <table>
+        <tr><th>学科</th><th>名前</th><th>職位</th></tr>
+      
+        <% let number = 0 %>
+        <% for( let row of data ) { %>
+            <tr>
+                <td><%= row.department %></td>
+                <td><a href="/teacher/detail/<%= number %>">
+                    <% if (row.name == "") { %>
+                        <small>（教員名を設定してください）</small>
+                    <% } else { %>
+                        <%= row.name %>
+                    <% } %>
+                </a></td>
+                <td><%= row.job %></td>
+            </tr>
+            <% number += 1 %>
+        <% } %>
+      
+    </table>
+
+    <br><hr>
+    <a href="/">トップページへ</a>
+
+</body>
+</html>

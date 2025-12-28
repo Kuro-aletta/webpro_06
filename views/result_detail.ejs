@@ -1,0 +1,40 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><%= data.name %>の詳細</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+  
+    <h2><%= data.year %>年度 <%= data.semester %>S 「<%= data.name %>」</h2>
+
+    <table>
+        <tr><th>項目</th><th>データ</th></tr>
+
+        <tr><td>担当教員</td><td><%= data.teacher %></td></tr>
+        <% if (data.subteacher != "") { %>
+            <tr><td>副担当</td><td><%= data.subteacher %></td></tr>
+        <% } %>
+        <tr><td>単位数</td><td><%= data.credit %></td></tr>
+        <tr><td>成績</td>
+            <td>
+                <% if (data.grade == "") { %>
+                    未評価
+                <% } else { %>
+                    <%= data.grade %>
+                <% } %>
+            </td>
+        </tr>
+    </table>
+
+    <p>
+        <a href="/result/edit/<%= id %>">編集する</a>
+        <br>
+        <a href="/result">一覧に戻る</a>
+        <br><br>
+        <a href="/result/delete/confirm/<%= id %>" style="color: red;">この科目を削除する</a>
+    </p>
+
+</body>
+</html>

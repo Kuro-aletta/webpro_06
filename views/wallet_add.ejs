@@ -1,0 +1,48 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新規項目の追加</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <h2>新規項目の追加</h2>
+
+    <form action="/wallet/add/confirm" method="POST">
+
+        <table>
+            <tr><th>項目</th><th>データ</th></tr>
+            
+            <tr><td>日付</td>
+                <td><input type="date" name="date" value="<%= data.date %>">
+                <br><small>※日付を選択</small></td>
+            </tr>
+
+            <tr><td>項目名</td>
+                <td><input type="text" name="item" value="<%= data.item %>"></td>
+            </tr>
+
+            <tr><td>値段</td>
+                <td><input type="number" name="price" value="<%= data.price %>"> 円
+                <br><small>※半角数字で入力</small></td>
+            </tr>
+
+            <tr><td>購入目的</td>
+                <td><input type="text" name="purpose" value="<%= data.purpose %>"></td>
+            </tr>
+
+            <tr><td>備考欄</td>
+                <td><input type="text" name="memo" value="<%= data.memo %>"></td>
+            </tr>
+        </table>
+
+        <br><input type="submit" value="確認画面へ">
+
+    </form>
+
+    <p>
+        <a href="/wallet">キャンセル（一覧に戻る）</a>
+    </p>
+
+</body>
+</html>

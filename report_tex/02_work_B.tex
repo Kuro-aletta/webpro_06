@@ -1,0 +1,590 @@
+\chapter{ワークB 脈拍測定プログラム開発}
+
+\section{はじめに}
+% 本ワークの目的
+私たちが普段目にする測定機器は，多種多様なセンサなどを用いて物理量を取得するが，取得した物理量はそのまま人間が理解できるものではない．
+本ワークでは，脈拍測定を対象とし，Arduinoへのアナログ入力，入力データの処理，処理結果の出力という，マイコンを用いた一連のデータ処理方法について理解を深めることを目的とする．
+また，開発したシステムが目的とした機能・性能を果たしているかを客観的に検証する．
+
+\section{ワークB-1}
+% ワークB-1の目的と実施内容を記載せよ
+ワークB-1の目的は，小型マイコンM5Stack ATOM Lite(ATOM)に記録されている4種類の信号波形を読み込むプログラムを開発することである．
+また，読み込んだ信号波形をグラフ化しやすい形式で出力し，その結果をグラフにして，どの信号波形が脈波の特徴を持っているか検討する．
+
+実施内容として，まずArduinoとATOMを接続し，次にATOMから出力される信号をシリアル出力するプログラムをArduinoに書き込む．
+その後，ATOMのボタンを操作して出力する信号波形を切り替えながら，LEDの色(青，紫，赤，緑)に対応したCSVファイルと信号波形のグラフを作成する．
+これらのグラフを比較し，どの信号波形が脈波を表しているか検討していく．
+
+\newpage
+
+\subsection{脈波信号の検討}
+% 出力した各信号波形の図を参照し，特徴を説明した上で，どの信号波形が脈波なのか結論を述べること
+% 根拠について参考にした文献がある場合は，参考文献に追加した上で，説明を記述する際に引用せよ
+出力した信号波形を，ATOM LiteのLEDの色が紫の場合は図\ref{fig:1_purple}，赤の場合は図\ref{fig:1_red}，
+緑の場合は図\ref{fig:1_green}，青の場合は図\ref{fig:1_blue}に示す．
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../workB/b1_signal_check/b1_020_purple.png}
+  \caption{ATOM LiteのLEDが紫の場合に出力された信号波形}
+  \label{fig:1_purple}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../workB/b1_signal_check/b1_020_red.png}
+  \caption{ATOM LiteのLEDが赤の場合に出力された信号波形}
+  \label{fig:1_red}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../workB/b1_signal_check/b1_020_green.png}
+  \caption{ATOM LiteのLEDが緑の場合に出力された信号波形}
+  \label{fig:1_green}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../workB/b1_signal_check/b1_020_blue.png}
+  \caption{ATOM LiteのLEDが青の場合に出力された信号波形}
+  \label{fig:1_blue}
+\end{figure}
+これら4つの信号波形の中から，脈波の信号波形を識別する．
+脈波には周期性があり，その周期パターンは一瞬の大きな山の後，切痕や重複波と呼ばれる小さな山や谷を有している\cite{workB_脈波1, workB_脈波2}．
+これらの脈波の特徴をもとに評価基準を表\ref{tab:1-1}のように設定する．
+\begin{table}[H]
+  \caption{出力された信号波形に対する評価基準}
+  \centering
+  \begin{tabular}{|c|c|l|}
+    \hline
+    ~番号~ & 評価項目 & 説明 \\
+    \hline \hline
+    1 & 周期性 & 波形が一定の周期で繰り返されるか \\
+    \hline
+    2 & 急な立ち上がり & 波の立ち上がりが急であるか \\
+    \hline
+    3 & 明瞭なピーク & はっきりとしたピークが存在するか \\
+    \hline
+    4 & 切痕・重複波 & ピークの後において，小さな山や谷が確認できるか \\
+    \hline
+  \end{tabular}
+  \label{tab:1-1}
+\end{table}
+これらの基準に基づき，各信号波形を評価する．
+
+まず，図\ref{fig:1_purple}(紫)と図\ref{fig:1_green}(緑)の波形は，それぞれ約1.5Hzと高周波，および約1.5Hzと約4Hzの波形が合成されたものと見られる．
+いずれも周期的な変動成分を含むが，脈波の特徴である急な立ち上がりや明瞭なピークは確認できず，切痕や重複波といった特徴も確認できない．
+
+次に，図\ref{fig:1_blue}(青)の波形は，約1.5Hzの周期的な変動が見られるものの，波形の立ち上がりは緩やかであり，ピークも丸みを帯びている．
+また，切痕や重複波も確認できない．これは単純な正弦波であり，脈波の特徴とは異なる．
+
+最後に，図\ref{fig:1_red}(赤)の波形は，鋭いピークを持つ特徴的な波形パターンが繰り返し出現していることがわかる．
+このパターンは，急な立ち上がりと明瞭なピークを持ち，ピークの後には小さな山や谷も確認できる．
+これは心拍ごとの波形が周期的に記録されたものと解釈でき，脈波の全ての評価基準を満たす．
+
+各信号波形の評価結果をまとめたものを表\ref{tab:1-2}に示す．
+\begin{table}[H]
+  \caption{出力された信号波形に対する識別結果}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|l|}
+    \hline
+    \multirow{2}{*}{ATOMの色} & \multicolumn{4}{c|}{評価項目番号} & \multirow{2}{*}{波形の識別結果} \\
+    \cline{2-5}
+     & ~~1~~ & ~~2~~ & ~~3~~ & ~~4~~ & \\
+    \hline \hline
+    紫(図\ref{fig:1_purple}) & △ & △ & × & × & 約1.5Hzと高周波の合成波 \\
+    \hline
+    赤(図\ref{fig:1_red}) & ◯ & ◯ & ◯ & ◯ & 脈波 \\
+    \hline
+    緑(図\ref{fig:1_green}) & △ & △ & × & × & 約1.5Hzと約4Hzの合成波 \\
+    \hline
+    青(図\ref{fig:1_blue}) & ◯ & × & △ & × & 約1.5Hzの正弦波 \\
+    \hline
+  \end{tabular}
+  \label{tab:1-2}
+\end{table}
+
+以上の評価により，図\ref{fig:1_red}(赤)の信号波形のみが設定した全ての評価基準を満たすことが判明した．
+したがって，ATOMのLEDが赤色の場合に出力される信号波形が，脈波を表す信号波形であると結論付けられる．
+
+
+\newpage
+
+\subsection{実装内容}
+% ファイルごとにプログラムを記載し，変更・追加した処理について説明すること（ipynbファイルは必要ない）
+% 変更しなかったファイルについては，変更していないことを説明すること
+
+b1\_signal\_check.inoに実装したプログラムをソースコード\ref{b1_signal_check}に示す．
+
+\begin{figure}[H]
+    \begin{lstlisting}[caption=b1\_signal\_check.ino, label=b1_signal_check, escapechar=\@, language=c++]
+void setup() {
+  Serial.begin(9600);
+
+  Serial.println("time,value");
+}
+
+void loop() {
+  uint32_t t = millis();
+
+  if ( t < 5000 ){
+
+    uint16_t v = analogRead(A0);
+
+    float sec = t / 1000.0;
+
+    Serial.print(sec,2);
+    Serial.print(",");
+    Serial.println(v);
+
+    delay(20);
+
+  } else {
+    return;
+  }
+}
+    \end{lstlisting}
+\end{figure}
+まず，setup関数では，4行目に表のラベルのシリアル出力するプログラムを追加した．
+次にloop関数の変更点について説明する．
+8行目で読み取った経過時間をもとに，10行目で起動してから5秒超えているかを判定し，
+超えていた場合は23行目でプログラムを停止，超えていない場合は12〜20行目のプログラムを実行する設定とした．
+14行目で計測した時間の単位をmsからsに変換し，16〜18行目で読み取った時間と入力をシリアル出力するプログラムを追加した．
+
+
+\newpage
+
+\section{ワークB-2}
+% ワークB-2の目的と実施内容を記載せよ
+ワークB-2の目的は，ワークB-1で脈波と特定したATOMの色が赤の信号波形を読み込み，その信号波形に対してピーク検出を行うプログラムを作成することである．
+さらに，ピーク検出が正しく行われるよう，プログラム中の2つの閾値(TOP\_THRESHOLD，DOWN\_THRESHOLD)について最適な値を検討する．
+
+実施内容として，まず仕様を満たすプログラムを実装した．
+主な実装内容は，プログラム実行時に一度だけ「time,value,peak」というラベルを出力する処理，
+秒単位の経過時間，アナログ入力値，ピーク検出の有無をシリアル出力する処理，プログラム起動から5秒経過した場合にtop関数の呼び出しを停止する処理である．
+次に，TOP\_THRESHOLDとDOWN\_THRESHOLDの値を変更しながら，Arduinoへのアップロードとグラフの作成を繰り返した．
+そして，作成されたグラフを確認し，最も正確にピークを検出できる閾値の組み合わせを検討した．
+
+\subsection{閾値の検討}
+% TOP_THRESHOLDとDOWN_THRESHOLDの組み合わせに応じたグラフを基に比較を行い，最終的な閾値がなぜ最適であるかを考察すること
+まず，TOP\_THRESHOLDの閾値を検討する．閾値を50ずつ変更しながらグラフを描いた．このとき，DOWN\_THRESHOLDの閾値は0に固定としている．
+TOP\_THRESHOLDの閾値を300に設定したときのグラフを図\ref{fig:2_300}に，350のときを図\ref{fig:2_350}に，400のときを図\ref{fig:2_400}に，
+450のときを図\ref{fig:2_450}に，500のときを図\ref{fig:2_500}に，550のときを図\ref{fig:2_550}に示す．
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../workB/b2_peak_detection/b2_020_top300_down0.png}
+  \caption{TOP\_THRESHOLDを300に設定したとき}
+  \label{fig:2_300}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../workB/b2_peak_detection/b2_020_top350_down0.png}
+  \caption{TOP\_THRESHOLDを350に設定したとき}
+  \label{fig:2_350}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../workB/b2_peak_detection/b2_020_top400_down0.png}
+  \caption{TOP\_THRESHOLDを400に設定したとき}
+  \label{fig:2_400}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../workB/b2_peak_detection/b2_020_top450_down0.png}
+  \caption{TOP\_THRESHOLDを450に設定したとき}
+  \label{fig:2_450}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../workB/b2_peak_detection/b2_020_top500_down0.png}
+  \caption{TOP\_THRESHOLDを500に設定したとき}
+  \label{fig:2_500}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../workB/b2_peak_detection/b2_020_top550_down0.png}
+  \caption{TOP\_THRESHOLDを550に設定したとき}
+  \label{fig:2_550}
+\end{figure}
+TOP\_THRESHOLDの閾値を300(図\ref{fig:2_300})や350(図\ref{fig:2_350})に設定した場合，
+ピークの山ではない小さなノイズもピークとして誤検出しており，閾値が低すぎることがわかる．
+また，閾値を550（図\ref{fig:2_550}）に設定した場合は，そもそもピークを検出できておらず，閾値が高すぎることがわかる．
+一方，TOP\_THRESHOLDの閾値を400(図\ref{fig:2_400})，450(図\ref{fig:2_450})，500(図\ref{fig:2_500})と設定した場合，ピークを正しく検出することができた．
+閾値が350(図\ref{fig:2_350})の場合，ピークの山ではない小さなノイズを誤って検出している箇所が見られるが，
+閾値が400(図\ref{fig:2_400})の場合は，これらのノイズが除外され，ピークのみを正しく検出できている．
+閾値400でピークの検出漏れは確認できなかったため，ノイズとピークを隔てる閾値として400が最適であると判断した．
+したがって，TOP\_THRESHOLDの閾値は400とした．
+
+次に，TOP\_THRESHOLDを400に固定した上で，DOWN\_THRESHOLDの閾値を検討する．閾値を1ずつ変更しながらグラフを描いた．
+DOWN\_THRESHOLDの閾値を0に設定したときのグラフを図\ref{fig:2_400}に，1のときを図\ref{fig:2_400_1}に，
+2のときを図\ref{fig:2_400_2}に，3のときを図\ref{fig:2_400_3}に示す．
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../workB/b2_peak_detection/b2_020_top400_down1.png}
+  \caption{DOWN\_THRESHOLDを1に設定したとき}
+  \label{fig:2_400_1}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../workB/b2_peak_detection/b2_020_top400_down2.png}
+  \caption{DOWN\_THRESHOLDを2に設定したとき}
+  \label{fig:2_400_2}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../workB/b2_peak_detection/b2_020_top400_down3.png}
+  \caption{DOWN\_THRESHOLDを3に設定したとき}
+  \label{fig:2_400_3}
+\end{figure}
+DOWN\_THRESHOLDの閾値が0，1，2と設定した場合，ピークを正しく検出することができた．
+しかし，DOWN\_THRESHOLDの閾値を3とした場合(図\ref{fig:2_400_3})，一部のピークが検出できていないことが確認できる．
+これは，ピークが下降に転じてから4回連続で値が減少しきる前に，TOP\_THRESHOLDの閾値である400を下回り，ピーク検出の処理が停止したためであると考えられる．
+閾値2(図\ref{fig:2_400_2})では全てのピークを検出できているため，安定して検出できる閾値としてDOWN\_THRESHOLDは2が最適であると判断した．
+したがって，DOWN\_THRESHOLDの閾値は2とした．
+
+これらの検証結果から，TOP\_THRESHOLDの閾値は400，DOWN\_THRESHOLDの閾値は2が最適であると考察した．
+
+\newpage
+
+\subsection{実装内容}
+% ファイルごとにプログラムを記載し，変更・追加した処理について説明すること（ipynbファイルは必要ない）
+% 変更しなかったファイルについては，変更していないことを説明すること
+
+b2\_peak\_detection.inoに実装したプログラムをソースコード\ref{b2_peak_detection}に示す．
+\begin{figure}[H]
+    \begin{lstlisting}[caption=b2\_peak\_detection.ino, label=b2_peak_detection, escapechar=\@, language=c++]
+#include "myPulse.h"
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println("time,value,peak");
+}
+
+void loop() {
+  int time = 5000 - millis();
+  if (time > 0) {
+    top(time);
+  } else {
+    return;
+  }
+}
+    \end{lstlisting}
+\end{figure}
+まず，setup関数では，5行目に表のラベルのシリアル出力するプログラムを追加した．
+次に，次にloop関数の変更点について説明する．
+9行目では，現在の経過時間を読み取り，5秒経過するまでの残り時間(time)に変換している．
+10行目では，このtimeを利用して，5秒経過していない場合は11行目でtop関数を呼び出し，5秒経過していた場合は13行目で処理を終了するプログラムとした．
+なお，11行目のtop関数では，引数にtimeを用いている．
+
+
+
+myPulse.hに実装したプログラムをソースコード\ref{b2_myPulse.h}に示す．
+\begin{figure}[H]
+        \begin{lstlisting}[caption=myPulse.h, label=b2_myPulse.h, escapechar=\@, language=c++]
+#ifndef MyPulse_h
+#define MyPulse_h
+
+#include <Arduino.h>
+
+uint16_t top(uint16_t limit_time);
+
+#endif    
+    \end{lstlisting}
+\end{figure}
+変更点は，6行目のtop関数の宣言で引数を追加したのみである．
+
+
+\newpage
+
+myPulse.cppに実装したプログラムをソースコード\ref{b2_myPulse.cpp}に示す．
+%\begin{figure}[H]
+    \begin{lstlisting}[caption=myPulse.cpp, label=b2_myPulse.cpp, escapechar=\@, language=c++]
+#include "myPulse.h"
+
+# define PIN_IN A0
+# define DELAY_TIME 20
+
+# define TOP_THRESHOLD 400
+# define DOWN_THRESHOLD 2
+# define UP_THRESHOLD 1
+
+uint16_t top(uint16_t limit_time){
+  uint32_t time = 0;
+  uint16_t maximum = 0;
+  uint16_t value = 0;
+  uint8_t up_count = 0;
+  uint8_t down_count = 0;
+  uint16_t timeout = limit_time / DELAY_TIME +1;
+
+  uint16_t size = timeout +1;
+  uint32_t time_list[size] = {0};
+  uint16_t value_list[size] = {0};
+
+  uint16_t index = 0;
+  
+  while(timeout--){
+    value = analogRead(PIN_IN);
+    time = millis();
+    
+    
+    time_list[index] = time;
+    value_list[index] = value;
+
+    if(value >= TOP_THRESHOLD){
+      if(value > maximum){
+        maximum = value;
+        up_count++;
+        down_count = 0;
+      }
+      else{
+        down_count++;
+      }
+    }
+
+    index += 1;
+
+    
+    if(up_count>UP_THRESHOLD && down_count>DOWN_THRESHOLD){
+      for (int i = 0; i < index; i++) {
+        Serial.print(time_list[i] / 1000.0, 2);
+        Serial.print(",");
+        Serial.print(value_list[i]);
+        Serial.print(",");
+
+        
+        if (i == index-down_count-1) {
+          Serial.println("1");
+        }
+        else {
+          Serial.println("0");
+        }
+      }
+
+      return maximum;
+    }
+
+    delay(DELAY_TIME);
+  }
+  
+  for (int i = 0; i < index; i++) {
+    Serial.print(time_list[i] / 1000.0, 2);
+    Serial.print(",");
+    Serial.print(value_list[i]);
+    Serial.print(",");
+    Serial.println("0");
+  }
+  
+  return 0;
+}
+    \end{lstlisting}
+%\end{figure}
+まず，使用する変数や配列についての変更点を説明する．
+16行目では，引数の5秒までの時間(limit\_time)をループの時間間隔(DELAY\_TIME)で割ることで，5秒を超えるまでに計測可能な回数を計算している．
+1を足しているのは割り算であるため端数が切り捨てされるためである．
+18〜20行目では，計測したデータを保存する配列(time\_listとvalue\_list)を宣言している．
+配列の長さ(size)をtimeoutより1多くしている理由は，配列の長さを超えてデータを保存しようとするリスクを考慮し，リスクヘッジをするためである．
+22行目では，計測したデータを保存する配列の場所を指定する変数(index)を宣言している．
+
+次に，データの保存とピーク検出を行う段階の変更点を説明する．
+29，30行目では，25，26行目で読み取った観測値をデータ保存用の配列(time\_listとvalue\_list)に保存している．
+43行目では，読み取りの回数(index)を進めている．
+
+続いて，データをシリアル出力する段階の変更点について説明する．
+46〜63行目は，ピークが検出できた場合にシリアル出力するプログラムである．
+シリアル出力は，47〜60行目でデータが保存されている回数分行っている．
+また，54〜59行目では，ピークを過ぎてからの計測回数でもあるdown\_countを用いることで，ピークの位置を判別する．
+68〜74行目は，5秒経過するまでにピークが検出できなかった場合にシリアル出力するプログラムである．
+処理はピークが検出できた場合とほぼ同じだが，ここではピークを検出できていないため，73行目でピークを全て0として出力する．
+
+\newpage
+
+\section{ワークB-3}
+% ワークB-3の目的と実施内容を記載せよ
+ワークB-3の目的は，ワークB-1で脈波と特定した信号波形とワークB-2で検討した最適な閾値を用いて，ピーク検出を基に脈拍を測定するプログラムを作成することである．
+さらに，測定した脈拍を戻り値とするrate関数を作成し，測定結果を統計的に分析・考察する．
+
+実施内容として，まずワークB-2で検討した最適な閾値(TOP\_THRESHOLD=400, DOWN\_THRESHOLD=2)を設定した．
+次に，仕様を満たすプログラムを実装した．
+主な実装内容は，2回のピーク検出時刻から1分間の脈拍数を計算して戻り値とするrate関数の作成，プログラム実行時に一度だけ「time,pulse」というラベルを出力する処理，
+秒単位の経過時間と脈拍数をシリアル出力する処理，プログラム起動から1分経過した場合にrate関数の呼び出しを停止する処理である．
+その後，作成したプログラムをArduinoにアップロードし，1分間の脈拍推移を記録したCSVファイルとグラフを作成した．
+最後に，得られたCSVデータの測定結果から基本的な統計値(最大値，最小値，平均値など)を算出し，測定された脈拍について考察した．
+
+
+\subsection{測定結果の考察}
+% 出力したグラフに加えて，測定結果から基本的な統計値（最大，最小，平均，中央値，標準偏差）を算出し表にまとめ，それぞれ参照しながら説明すること
+% 統計値は表計算ソフトを使って求めて良いが，表計算ソフトのスクリーンショットを表示するのではなく，latexのtableを利用して表示すること
+
+測定結果から出力したグラフを図\ref{fig:3_result}に，統計値を表\ref{tab:3-result}に示す．
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../workB/b3_pulse_measurement/b3_020_pulse.png}
+  \caption{測定結果から出力したグラフ(縦軸: 脈拍数，横軸: 時間)}
+  \label{fig:3_result}
+\end{figure}
+\begin{table}[H]
+  \caption{測定結果から算出した脈波の統計値}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    最大[bpm] & 最小[bpm] & 平均[bpm] & 中央値[bpm] & 標準偏差 \\
+    \hline \hline
+    69 & 60 & 64.21 & 63 & 2.579 \\
+    \hline
+  \end{tabular}
+  \label{tab:3-result}
+\end{table}
+
+
+まず，測定された脈拍数の妥当性を検討する．
+一般的に，成人の正常な安静時の脈拍は，1分間に60から100回の心拍とされている\cite{workA_脈拍数}．
+測定結果は表\ref{tab:3-result}より，最大値は69bpm，最小値は60bpmであり，また平均値は64.21bpm，中央値は63bpmであった．
+これらの値は全て正常とされる脈拍数である60〜100bpmの範囲に収まっている．
+したがって，ワークB-2で決定した閾値(TOP\_THRESHOLD=400，DOWN\_THRESHOLD=2)を用いたピーク検出と計測方法で，妥当な値を算出できていることを示している．
+
+次に，図\ref{fig:3_result}のグラフと表\ref{tab:3-result}の標準偏差(2.579)に着目する．
+グラフから，脈拍数は測定中も60〜69bpmの間で常に細かく変動していることが観測できる．
+これは測定誤差ではなく，心拍変動(HRV)と呼ばれる正常な生理現象であり，呼吸などに伴う自律神経系の調整によって生じるものである\cite{workB_心拍変動}．
+標準偏差が0ではなく2.579という値を持つことは，プログラムが微細な揺らぎを正確に検出できていることを示している．
+
+以上の点から，作成した脈拍測定プログラムは，単に平均的な脈拍数を算出するだけでなく，脈拍の微細な揺らぎも捉えることが可能な，妥当性の高い測定が実行できていると考察される．
+
+
+
+\subsection{実装内容}
+% ファイルごとにプログラムを記載し，変更・追加した処理について説明すること（ipynbファイルは必要ない）
+% 変更しなかったファイルについては，変更していないことを説明すること
+
+b3\_pulse\_measurement.inoに実装したプログラムをソースコード\ref{b3_pulse_measurement}に示す．
+\begin{figure}[H]
+    \begin{lstlisting}[caption=b3\_pulse\_measurement.ino, label=b3_pulse_measurement, escapechar=\@, language=c++]
+#include "myPulse.h"
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println("time,pulse");
+}
+
+void loop() {
+  int timer = 60*1000 - millis();
+  if(timer > 0){
+    uint8_t pulse = rate();
+    if (pulse != 0) {
+    uint32_t current_time = millis();
+
+    Serial.print(current_time / 1000.0, 2);
+    Serial.print(",");
+    Serial.println(pulse);
+    }
+  }
+  else{
+    return;
+  }
+}
+    \end{lstlisting}
+\end{figure}
+
+\newpage
+
+まず，5行目に表のラベルのシリアル出力するプログラムを追加した．
+次に，loop関数について説明する．
+10行目では，9行目で保存した1分経過するまでの時間(timer)を用いて，1分経過したかの判定を行なっている．
+1分経過していない場合は11〜18行目のプログラムを実行し，1分経過した場合は21行目で処理を終了する．
+11行目ではrate関数を呼び出し，返り値である心拍数をpulseに保存する．
+12行目では，rate関数が0(ピーク検出失敗)を返さなかったかを確認し，有効な脈拍数が返ってきた場合のみ，13〜17行目のシリアル出力処理を実行するプログラムとした．
+そして，13行目で経過時間を読み取り，15〜17行目で時間と心拍数をシリアル出力する．
+
+myPulse.hに実装したプログラムをソースコード\ref{b3_myPulse.h}に示す．
+\begin{figure}[H]
+    \begin{lstlisting}[caption=myPulse.h, label=b3_myPulse.h, escapechar=\@, language=c++]
+#ifndef MyPulse_h
+#define MyPulse_h
+
+#include <Arduino.h>
+
+uint16_t top();
+uint8_t rate();
+
+#endif
+    \end{lstlisting}
+\end{figure}
+myPulse.hは変更してない．
+
+\newpage
+
+myPulse.cppに実装したプログラムをソースコード\ref{b3_myPulse.cpp}に示す．
+%\begin{figure}[H]
+    \begin{lstlisting}[caption=myPulse.cpp, label=b3_myPulse.cpp, escapechar=\@, language=c++]
+#include "myPulse.h"
+
+# define PIN_IN A0
+# define DELAY_TIME 20
+
+# define TOP_THRESHOLD 400
+# define DOWN_THRESHOLD 2
+# define UP_THRESHOLD 1
+
+
+uint16_t top(){
+  uint16_t maximum = 0;
+  uint16_t value = 0;
+  uint8_t up_count = 0;
+  uint8_t down_count = 0;
+  uint8_t timeout = 255;
+  
+  while(timeout--){
+    value = analogRead(PIN_IN);
+
+    if(value >= TOP_THRESHOLD){
+      if(value > maximum){
+        maximum = value;
+        up_count++;
+        down_count = 0;
+      }
+      else{
+        down_count++;
+      }
+    }
+
+    
+    if(up_count>UP_THRESHOLD && down_count>DOWN_THRESHOLD)      
+      return maximum;
+
+    delay(DELAY_TIME);
+  }
+  return 0;
+}
+
+
+uint8_t rate(){
+  
+
+  bool checker = top();
+  if (checker == 0) {
+    return 0;
+  }
+  uint32_t time_1 = millis();
+
+  checker = top();
+  if (checker == 0) {
+    return 0;
+  }
+  uint32_t time_2 = millis();
+
+  uint32_t time_difference = time_2 - time_1;
+  uint8_t pluse = 60*1000 / time_difference;
+  
+  return pluse;
+}
+    \end{lstlisting}
+%\end{figure}
+まず，マクロ定数をワークB-2で考察した閾値に変更した．6行目のTOP\_THRESHOLDの閾値は400，7行目のDOWN\_THRESHOLDの閾値は2に設定している．
+
+次に，16行目にあるtop関数のtimeoutを1024から255に修正した．これは，uint8\_tが8ビットの符号なし整数型であり，格納できる最大値が255であり，1024では数値が大きすぎるためである．
+
+続いて，rate関数について説明する．rate関数で使用するtop関数は，ピークを検知するまでのdelay関数のように使用する．
+45行目では，top関数で基準となる一回目のピークを検出し，返り値をbool型のcheckerに保存する．
+top関数はピーク値をuint16\_t型で返すが，bool型変数への代入時に型の変換が行われる．
+これにより，返り値が0(ピークを検出できなかった)の場合はcheckerにfalse(0)が，0以外のピーク値(ピークを検出できた)の場合はtrue(1)が保存される．
+そして，46行目で，このcheckerが0(false)であるかを比較することで，top関数がピークを検知できなかったかを判定する．
+ピークを検知できなかった場合は47行目で処理を終了する．
+無事にピークを検出できた場合は，49行目で一回目のピークを検出した時刻を保存する．
+二回目のピーク検出でも，一回目(45〜49行目)と同じ処理を51〜55行目で行う．
+その後，57，58行目で二度のピークの時間差から心拍数を算出し，60行目で算出した心拍数を返す．

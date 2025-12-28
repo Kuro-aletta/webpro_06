@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+table {
+    border-collapse: collapse;
+    border: 3px solid black;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px 20px; 
+}
+
+th {
+    background-color: #f0f0f0;
+    font-size: 1.1em;
+    border-bottom: 3px solid black;
+}
+
+.text-red {
+    color: red;
+}
+
+.text-blue {
+    color: blue;
+}
+
+.delete {
+    background-color: #ffcccc;
+}
+
+input[type="submit"] {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.total-border {
+    border-top: 3px solid black;
+}

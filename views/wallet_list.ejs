@@ -1,0 +1,45 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>お小遣い帳</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <h2>お小遣い帳</h2>
+  
+    <p>
+        <a href="/wallet/add">新規項目を追加する</a>
+    </p>
+
+    <table>
+        <tr><th>日付</th><th>項目名</th><th>値段</th></tr>
+      
+        <% let number = 0 %>
+        <% for( let row of data ) { %>
+            <tr>
+                <td><%= row.date %></td>
+                <td><a href="/wallet/detail/<%= number %>">
+                    <% if (row.item == "") { %>
+                        <small>（項目名を設定してください）</small>
+                    <% } else { %>
+                        <%= row.item %>
+                    <% } %>
+                </a></td>
+                <td><%= row.price %> 円</td>
+            </tr>
+            <% number += 1 %>
+        <% } %>
+
+        <tr>
+            <td colspan="2" class="total-border"><b>合計金額</b></td>
+            <td class="total-border"><b><%= total %> 円</b></td>
+        </tr>
+      
+  </table>
+
+  <br><hr>
+  <a href="/">トップページへ</a>
+
+</body>
+</html>

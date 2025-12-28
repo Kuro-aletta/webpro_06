@@ -1,0 +1,53 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>変更内容の確認</title>
+  <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+  
+  <h2 class="text-red">まだ保存されていません</h2>
+  <p class="text-blue">以下の内容で上書きしてよろしいですか？</p>
+
+  <table>
+    <tr><th>項目</th><th>変更後のデータ</th></tr>
+    <tr><td>年度</td><td><%= data.year %></td></tr>
+    <tr><td>セメスタ</td><td><%= data.semester %>S</td></tr>
+    <tr><td>科目名</td><td><%= data.name %></td></tr>
+    <tr><td>担当教員</td><td><%= data.teacher %></td></tr>
+    <tr><td>副担当</td><td><%= data.subteacher %></td></tr>
+    <tr><td>単位数</td><td><%= data.credit %></td></tr>
+    <tr><td>成績</td><td><%= data.grade %></td></tr>
+  </table>
+
+  <br>
+
+  <form action="/result/edit/return/<%= id %>" method="POST" class="form-inline">
+    <input type="hidden" name="year" value="<%= data.year %>">
+    <input type="hidden" name="semester" value="<%= data.semester %>">
+    <input type="hidden" name="name" value="<%= data.name %>">
+    <input type="hidden" name="teacher" value="<%= data.teacher %>">
+    <input type="hidden" name="subteacher" value="<%= data.subteacher %>">
+    <input type="hidden" name="credit" value="<%= data.credit %>">
+    <input type="hidden" name="grade" value="<%= data.grade %>">
+
+    <input type="submit" value="修正する">
+  </form>
+
+  <br>
+
+  <form action="/result/update/<%= id %>" method="POST" class="form-inline">
+    <input type="hidden" name="year" value="<%= data.year %>">
+    <input type="hidden" name="semester" value="<%= data.semester %>">
+    <input type="hidden" name="name" value="<%= data.name %>">
+    <input type="hidden" name="teacher" value="<%= data.teacher %>">
+    <input type="hidden" name="subteacher" value="<%= data.subteacher %>">
+    <input type="hidden" name="credit" value="<%= data.credit %>">
+    <input type="hidden" name="grade" value="<%= data.grade %>">
+
+    <input type="submit" value="確定して保存">
+  </form>
+
+</body>
+</html>

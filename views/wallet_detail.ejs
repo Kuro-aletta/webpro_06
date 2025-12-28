@@ -1,0 +1,30 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><%= data.item %>の詳細</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+
+    <h2><%= data.item %></h2>
+
+    <table>
+        <tr><th>項目</th><th>データ</th></tr>
+        
+        <tr><td>値段</td><td><%= data.price %> 円</td></tr>
+        <tr><td>日付</td><td><%= data.date %></td></tr>
+        <tr><td>購入目的</td><td><%= data.purpose %></td></tr>
+        <tr><td>備考欄</td><td><%= data.memo %></td></tr>
+    </table>
+
+    <p>
+        <a href="/wallet/edit/<%= id %>">編集する</a>
+        <br>
+        <a href="/wallet">一覧に戻る</a>
+        <br><br>
+        <a href="/wallet/delete/confirm/<%= id %>" style="color: red;">この項目を削除する</a>
+    </p>
+
+</body>
+</html>

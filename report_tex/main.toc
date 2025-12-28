@@ -1,0 +1,41 @@
+\contentsline {section}{\numberline {1}はじめに}{1}{}
+\contentsline {subsection}{\numberline {1.1}開発の目的}{1}{}
+\contentsline {subsection}{\numberline {1.2}作成したシステム}{1}{}
+\contentsline {section}{\numberline {2}利用者向けドキュメント}{1}{}
+\contentsline {subsection}{\numberline {2.1}概要}{1}{}
+\contentsline {subsection}{\numberline {2.2}起動画面（メインメニュー）}{2}{}
+\contentsline {subsection}{\numberline {2.3}一覧表示}{2}{}
+\contentsline {subsection}{\numberline {2.4}詳細表示}{3}{}
+\contentsline {subsection}{\numberline {2.5}データの編集}{4}{}
+\contentsline {subsection}{\numberline {2.6}データの追加}{7}{}
+\contentsline {subsection}{\numberline {2.7}データの削除}{10}{}
+\contentsline {section}{\numberline {3}管理者向けドキュメント}{12}{}
+\contentsline {subsection}{\numberline {3.1}インストール方法}{12}{}
+\contentsline {subsubsection}{\numberline {3.1.1}システム本体の準備}{12}{}
+\contentsline {subsubsection}{\numberline {3.1.2}ライブラリのインストール}{12}{}
+\contentsline {subsection}{\numberline {3.2}起動方法}{13}{}
+\contentsline {subsection}{\numberline {3.3}起動できない場合}{13}{}
+\contentsline {subsubsection}{\numberline {3.3.1}ライブラリが見つからない場合}{13}{}
+\contentsline {subsubsection}{\numberline {3.3.2}ポート番号が既に使用されている場合}{13}{}
+\contentsline {subsection}{\numberline {3.4}終了方法}{13}{}
+\contentsline {section}{\numberline {4}開発者向けドキュメント}{14}{}
+\contentsline {subsection}{\numberline {4.1}開発環境}{14}{}
+\contentsline {subsection}{\numberline {4.2}ディレクトリ構造}{14}{}
+\contentsline {subsection}{\numberline {4.3}システム構造とURL設計}{15}{}
+\contentsline {subsubsection}{\numberline {4.3.1}ページ遷移の仕組み}{16}{}
+\contentsline {subsubsection}{\numberline {4.3.2}データの受け渡し（リレー方式）}{16}{}
+\contentsline {subsubsection}{\numberline {4.3.3}処理実行後の画面遷移}{17}{}
+\contentsline {subsection}{\numberline {4.4}データ構造}{17}{}
+\contentsline {subsubsection}{\numberline {4.4.1}成績管理システム (result)}{17}{}
+\contentsline {subsubsection}{\numberline {4.4.2}教員情報システム (teacher)}{17}{}
+\contentsline {subsubsection}{\numberline {4.4.3}お小遣い帳システム (wallet)}{18}{}
+\contentsline {subsection}{\numberline {4.5}各システムの機能詳細}{18}{}
+\contentsline {subsubsection}{\numberline {4.5.1}成績管理システム}{18}{}
+\contentsline {subsubsection}{\numberline {4.5.2}教員情報システム}{19}{}
+\contentsline {subsubsection}{\numberline {4.5.3}お小遣い帳システム}{19}{}
+\contentsline {subsection}{\numberline {4.6}講義範囲外の要素の実装}{19}{}
+\contentsline {subsubsection}{\numberline {4.6.1}EJS内での条件分岐 (if文)}{19}{}
+\contentsline {subsubsection}{\numberline {4.6.2}CSSによるデザインの管理}{19}{}
+\contentsline {subsubsection}{\numberline {4.6.3}入力補助のためのsmallタグ}{20}{}
+\contentsline {subsubsection}{\numberline {4.6.4}数値計算と入力値の検証}{20}{}
+\contentsline {section}{\numberline {5}おわりに}{21}{}

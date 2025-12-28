@@ -1,0 +1,53 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><%= data.name %>の編集</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <h2><%= data.name %>の編集</h2>
+
+    <form action="/result/edit/confirm/<%= id %>" method="POST">
+    
+        <table>
+            <tr><th>項目</th><th>データ入力欄</th></tr>
+      
+            <tr><td>年度</td>
+                <td><input type="number" name="year" value="<%= data.year %>">
+                <br><small>※西暦を半角数字で入力（例: 2025）</small></td>
+            </tr>
+            <tr><td>セメスタ</td>
+                <td><input type="number" name="semester" value="<%= data.semester %>"> S
+                <br><small>※半角数字で入力</small></td>
+            </tr>
+            <tr><td>科目名</td>
+                <td><input type="text" name="name" value="<%= data.name %>"></td>
+            </tr>
+            <tr><td>担当教員</td>
+                <td><input type="text" name="teacher" value="<%= data.teacher %>"></td>
+            </tr>
+            <tr><td>副担当</td>
+                <td><input type="text" name="subteacher" value="<%= data.subteacher %>">
+                <br><small>※いない場合は空欄</small></td>
+            </tr>
+            <tr><td>単位数</td>
+                <td><input type="number" name="credit" value="<%= data.credit %>">
+                <br><small>※半角数字で入力</small></td>
+            </tr>
+            <tr><td>成績</td>
+                <td><input type="text" name="grade" value="<%= data.grade %>">
+                <br><small>※未評価の場合は空欄、または S, A, 合 などを入力</small></td>
+            </tr>
+        </table>
+
+        <br><input type="submit" value="確認画面へ">
+  
+    </form>
+
+    <p>
+        <a href="/result/detail/<%= id %>">キャンセル（詳細に戻る）</a>
+    </p>
+
+</body>
+</html>

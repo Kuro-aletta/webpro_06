@@ -1,0 +1,47 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>登録内容の確認</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+
+    <h2 class="text-red">まだ保存されていません</h2>
+    <p class="text-blue">以下の内容で登録してよろしいですか？</p>
+
+    <table>
+        <tr><th>項目</th><th>データ</th></tr>
+        <tr><td>日付</td><td><%= data.date %></td></tr>
+        <tr><td>項目名</td><td><%= data.item %></td></tr>
+        <tr><td>値段</td><td><%= data.price %> 円</td></tr>
+        <tr><td>購入目的</td><td><%= data.purpose %></td></tr>
+        <tr><td>備考欄</td><td><%= data.memo %></td></tr>
+    </table>
+
+    <br>
+
+    <form action="/wallet/add/return" method="POST" class="form-inline">
+        <input type="hidden" name="date" value="<%= data.date %>">
+        <input type="hidden" name="item" value="<%= data.item %>">
+        <input type="hidden" name="price" value="<%= data.price %>">
+        <input type="hidden" name="purpose" value="<%= data.purpose %>">
+        <input type="hidden" name="memo" value="<%= data.memo %>">
+
+        <input type="submit" value="修正する">
+    </form>
+
+    <br>
+
+    <form action="/wallet/create" method="POST" class="form-inline">
+        <input type="hidden" name="date" value="<%= data.date %>">
+        <input type="hidden" name="item" value="<%= data.item %>">
+        <input type="hidden" name="price" value="<%= data.price %>">
+        <input type="hidden" name="purpose" value="<%= data.purpose %>">
+        <input type="hidden" name="memo" value="<%= data.memo %>">
+
+        <input type="submit" value="追加する">
+    </form>
+
+</body>
+</html>

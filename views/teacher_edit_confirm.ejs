@@ -1,0 +1,47 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>変更内容の確認</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+
+    <h2 class="text-red">まだ保存されていません</h2>
+    <p class="text-blue">以下の内容で上書きしてよろしいですか？</p>
+
+    <table>
+        <tr><th>項目</th><th>変更後のデータ</th></tr>
+        <tr><td>学科</td><td><%= data.department %></td></tr>
+        <tr><td>氏名</td><td><%= data.name %></td></tr>
+        <tr><td>職位</td><td><%= data.job %></td></tr>
+        <tr><td>研究室</td><td><%= data.laboratory %></td></tr>
+        <tr><td>担当科目</td><td><%= data.subject %></td></tr>
+    </table>
+
+    <br>
+
+    <form action="/teacher/edit/return/<%= id %>" method="POST" class="form-inline">
+        <input type="hidden" name="department" value="<%= data.department %>">
+        <input type="hidden" name="name" value="<%= data.name %>">
+        <input type="hidden" name="job" value="<%= data.job %>">
+        <input type="hidden" name="laboratory" value="<%= data.laboratory %>">
+        <input type="hidden" name="subject" value="<%= data.subject %>">
+
+        <input type="submit" value="修正する">
+    </form>
+
+    <br>
+
+    <form action="/teacher/update/<%= id %>" method="POST" class="form-inline">
+        <input type="hidden" name="department" value="<%= data.department %>">
+        <input type="hidden" name="name" value="<%= data.name %>">
+        <input type="hidden" name="job" value="<%= data.job %>">
+        <input type="hidden" name="laboratory" value="<%= data.laboratory %>">
+        <input type="hidden" name="subject" value="<%= data.subject %>">
+
+        <input type="submit" value="確定して保存">
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>削除の確認</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+
+    <h2 class="text-red">本当に削除しますか？</h2>
+    <p class="text-blue">以下のデータが完全に消去されます。元に戻すことはできません。</p>
+
+    <table>
+        <tr><th>項目</th><th>データ</th></tr>
+        <tr><td>日付</td><td><%= data.date %></td></tr>
+        <tr><td>項目名</td><td><%= data.item %></td></tr>
+        <tr><td>値段</td><td><%= data.price %> 円</td></tr>
+        <tr><td>購入目的</td><td><%= data.purpose %></td></tr>
+        <tr><td>備考欄</td><td><%= data.memo %></td></tr>
+    </table>
+
+    <br>
+
+    <form action="/wallet/delete/<%= id %>" method="POST">
+        <input type="submit" value="削除する" class="text-red delete">
+    </form>
+
+    <p>
+        <a href="/wallet/detail/<%= id %>">キャンセル（詳細に戻る）</a>
+    </p>
+
+</body>
+</html>
