@@ -1,14 +1,14 @@
 \section{はじめに}
 \subsection{開発の目的}
 本レポートでは，Webアプリケーション開発の基礎技術習得を目的として作成したシステムについて報告する．
-近年のWebシステムにおいて不可欠な技術である，サーバサイドでの動的なコンテンツ生成を実現するNode.jsおよびExpressフレームワークを利用し，データの「作成（Create）」「読み取り（Read）」「更新（Update）」「削除（Delete）」という基本機能（CRUD）を備えたアプリケーションを構築した．
+近年のWebシステムにおいて不可欠な技術である，サーバサイドでの動的なコンテンツ生成を実現するNode.jsおよびExpressフレームワークを利用し，データの「新規登録（Create）」「一覧，詳細表示（Read）」「編集・更新（Update）」「削除（Delete）」という基本機能（CRUD）を備えたアプリケーションを構築した．
 本開発では，操作性や画面遷移を統一した3つの異なるシステムを作成することで，データ構造が異なっても共通の設計思想で実装可能であることを確認した．
 
 \subsection{作成したシステム}
 本課題では，以下の3つのシステムを作成した．
 \begin{enumerate}
     \item \textbf{成績管理システム}：履修した科目の単位数や成績を記録し，学修状況を管理するシステム．
-    \item \textbf{教員情報システム}：所属学科や職位，担当科目などの教員情報をデータベース化し，閲覧・管理するシステム．
+    \item \textbf{教員情報システム}：所属学科や職位，担当科目などの教員情報を一元管理し，閲覧するシステム．
     \item \textbf{お小遣い帳システム}：日々の支出を記録し，合計金額を自動計算して表示する金銭管理システム．
 \end{enumerate}
 
@@ -22,9 +22,16 @@
 お小遣い帳システムでは，日々の買い物の「日付」「項目」「値段」などを記録し，一覧画面で支出の合計を確認することができる．
 
 \subsection{起動画面（メインメニュー）}
-Webブラウザのアドレスバーに \url{http://localhost:8080/} と入力してアクセスすると，メインメニューが表示される（図\ref{fig:top}）．
+Webブラウザのアドレスバー（図\ref{fig:URL}）に \url{http://localhost:8080/} と入力してアクセスすると，メインメニューが表示される（図\ref{fig:top}）．
 ここから「お小遣い帳」のリンクをクリックすることで，お小遣い帳システムへ移動できる．万が一，存在しないページへアクセスした場合は「ページが見つかりません」と表示され，トップページへ戻るリンクが提供される（図\ref{fig:404}）．
 
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=13cm]{fig_web/URL.png}
+  \caption{Google Chromeの場合のアドレスバーの位置}
+  \label{fig:URL}
+ \end{center}
+\end{figure}
 \begin{figure}[H]
  \begin{center}
   \includegraphics[width=5cm]{fig_web/top.png}
@@ -147,7 +154,7 @@ Webブラウザのアドレスバーに \url{http://localhost:8080/} と入力�
         \label{fig:add_change}
         \end{center}
         \end{figure}
-    \item 新規登録内容の確認画面が表示される．内容に間違いがなければ「追加する」ボタンを押す．修正が必要な場合は「修正する」ボタンを押して入力画面へ戻る．
+    \item 新規登録内容の確認画面が表示される（図\ref{fig:add_confirm}）．内容に間違いがなければ「追加する」ボタンを押す．修正が必要な場合は「修正する」ボタンを押して入力画面へ戻る．
         \begin{figure}[H]
         \begin{center}
         \includegraphics[width=15cm]{fig_web/wallet_add_confirm.png}
@@ -155,7 +162,7 @@ Webブラウザのアドレスバーに \url{http://localhost:8080/} と入力�
         \label{fig:add_confirm}
         \end{center}
         \end{figure}
-    \item 「追加する」を押すとデータが保存され，一覧表示画面に追加されたデータが表示される．
+    \item 「追加する」を押すとデータが保存され，一覧表示画面に追加されたデータが表示される（図\ref{fig:add_fin1}）．
         \begin{figure}[H]
         \begin{center}
         \includegraphics[width=15cm]{fig_web/wallet_add_fin.png}
@@ -208,7 +215,7 @@ Webブラウザのアドレスバーに \url{http://localhost:8080/} と入力�
 \section{管理者向けドキュメント}
 \subsection{インストール方法}
 \subsubsection{システム本体の準備}
-本システムのソースコードはGitHubにて公開されている．GitHubのURL（\url{https://github.com/Kuro-aletta/webpro_06}）からリポジトリをダウンロード，またはターミナル上でソースコード\ref{cmd:clone}を実行し，任意のディレクトリに配置する．\\
+本システムのソースコードはGitHubにて公開されている．GitHubのURL（\url{https://github.com/Kuro-aletta/webpro_06}）からリポジトリをダウンロード，またはターミナル上でソースコード\ref{cmd:clone}を実行し，任意のディレクトリに配置する．
 \begin{lstlisting}[caption=システム本体のクローン, label=cmd:clone]
 $ git clone https://github.com/Kuro-aletta/webpro_06.git
 \end{lstlisting}
@@ -216,10 +223,11 @@ $ git clone https://github.com/Kuro-aletta/webpro_06.git
 \subsubsection{ライブラリのインストール}
 本システムはNode.js上で動作し，ExpressおよびEJSパッケージを使用する．
 ターミナルを開き，システムを配置したディレクトリへ移動した後，ソースコード\ref{cmd:install}のコマンドを実行して必要なライブラリをインストールする．
+\clearpage
 \begin{lstlisting}[caption=ライブラリのインストール, label=cmd:install]
 $ npm install
 \end{lstlisting}
-これにより，\texttt{package.json} に記述された依存関係（express, ejs）がインストールされる．
+これにより，\texttt{package.json} に記載されている，本システムの実行に必要なライブラリ（express, ejs）がまとめてインストールされる．
 
 \subsection{起動方法}
 ディレクトリ内に \texttt{app\_report.js} および \texttt{node\_modules} フォルダが存在することを確認する．
@@ -238,18 +246,47 @@ Webブラウザで以下のURLにアクセスして動作を確認する．
 
 \subsection{起動できない場合}
 \subsubsection{ライブラリが見つからない場合}
-起動時に \texttt{Error: Cannot find module 'express'} と表示される場合は，ライブラリのインストールが行われていない．\texttt{npm install} コマンドを再度実行することで解決する．
+起動時に \texttt{Error: Cannot find module 'express'} と表示される場合は，ライブラリのインストールが行われていない．\texttt{npm install} コマンド（ソースコード\ref{cmd:install}）を再度実行することで解決する．
 
 \subsubsection{ポート番号が既に使用されている場合}
 起動時に \texttt{Error: listen EADDRINUSE: address already in use :::8080} と表示される場合は，既に別のプロセスが8080番ポートを使用している．
-この場合，使用中のプロセスを終了させるか，\texttt{app\_report.js} 内のポート番号設定（\texttt{app.listen(8080, ...)} の部分）を変更して再起動する．
+これは多くの場合，前回のサーバ起動時に正しく終了できず，バックグラウンドでプロセスが動作し続けていることに起因する．
+この場合，以下の手順でプロセスを特定し，停止させる必要がある．
+\clearpage
+\begin{enumerate}
+    \item ポート8080を使用しているプロセスのID（PID）を特定する（ソースコード\ref{cmd:lsof}）．
+\begin{lstlisting}[caption=PIDの確認, label=cmd:lsof]
+$ lsof -i :8080
+\end{lstlisting}
+    \item 表示されたPID（数値）を指定してプロセスを終了（kill）する（ソースコード\ref{cmd:kill}）．
+\begin{lstlisting}[caption=プロセスの終了, label=cmd:kill]
+$ kill <PID>
+\end{lstlisting}
+    \item 上記コマンド（ソースコード\ref{cmd:kill}）でも終了しない（強制終了が必要な）場合は，\texttt{-9} を付けて再度実行する（ソースコード\ref{cmd:kill9}）．
+\begin{lstlisting}[caption=プロセスの強制終了, label=cmd:kill9]
+$ kill -9 <PID>
+\end{lstlisting}
+\end{enumerate}
+
+なお，\texttt{app\_report.js} 内のポート番号設定（\texttt{app.listen(8080, ...)} の部分）を別の番号（8081など）に書き換えることでも対応可能であるが，アクセスするURLが変更となり利用者への周知が必要となるため，この方法は推奨しない．
 
 \subsection{終了方法}
 サーバを停止させる場合は，起動しているターミナル上で \texttt{Ctrl + C} キーを入力する．
+なお，\texttt{Ctrl + Z} はプロセスを一時停止させる操作であり，完全に終了しない．この状態でターミナルを閉じるとポートが占有されたままとなり，次回の起動時にエラー（EADDRINUSE）の原因となるため注意が必要である．
+
+\subsection{分かっている不具合・制限事項}
+本システムはデータをサーバのメモリ上に保存しているため，サーバを再起動または終了すると，登録したデータはすべてリセットされる仕様である．
+なお，現在確認されている動作上の不具合はない．
 
 
 
+\clearpage
 \section{開発者向けドキュメント}
+\subsection{概要}
+本システムは，サーバサイドJavaScript実行環境であるNode.jsおよびWebフレームワークExpressを用いて構築されたWebアプリケーションである．
+アーキテクチャとしてMVC（Model-View-Controller）モデルに近い構成を採用しており，\texttt{views} ディレクトリ内のEJSテンプレート（View）と，\texttt{app\_report.js} によるルーティングおよびロジック処理（Controller）により動作する．
+なお，本システムではデータベースを使用せず，サーバメモリ上の変数（配列）としてデータを管理する（Model相当）仕様としている．
+
 \subsection{開発環境}
 本システムの開発および動作環境は以下の通りである．
 \begin{itemize}
@@ -260,40 +297,45 @@ Webブラウザで以下のURLにアクセスして動作を確認する．
 \end{itemize}
 
 \subsection{ディレクトリ構造}
-GitHub（\url{https://github.com/Kuro-aletta/webpro_06}）にて公開されている本システムのファイル構成をソースコード\ref{list:dir}に示す．なお，本システムに関与しないファイルは省略されている．
+GitHub（\url{https://github.com/Kuro-aletta/webpro_06}）にて公開されている本システムのファイル構成を図\ref{fig:dir_tree}に示す．なお，本システムに関与しないファイルは省略されている．
 実行の起点となるプログラムである \texttt{app\_report.js} をルートに置き，静的リソース（CSSなど）は \texttt{public} ディレクトリ，画面のひな型となるEJSファイルは \texttt{views} ディレクトリに配置して管理している．
 
-\begin{lstlisting}[caption=ディレクトリ構造, label=list:dir]
-webpro_06/
-|-- app_report.js             (サーバサイドプログラム)
-|-- package.json              (依存ライブラリ定義)
-|-- node_modules/             (インストールされたライブラリ)
-|-- public/                   (静的ファイル用ディレクトリ)
-|   |-- style.css             (共通スタイルシート)
-|   +-- top.html              (トップページ)
-+-- views/                    (EJSファイル用ディレクトリ)
-    |-- result_list.ejs           (成績:一覧)
-    |-- result_detail.ejs         (成績:詳細)
-    |-- result_add.ejs            (成績:追加入力)
-    |-- result_add_confirm.ejs    (成績:追加確認)
-    |-- result_edit.ejs           (成績:編集入力)
-    |-- result_edit_confirm.ejs   (成績:編集確認)
-    |-- result_delete_confirm.ejs (成績:削除確認)
-    |-- teacher_list.ejs          (教員:一覧)
-    |-- teacher_detail.ejs        (教員:詳細)
-    |-- teacher_add.ejs           (教員:追加入力)
-    |-- teacher_add_confirm.ejs   (教員:追加確認)
-    |-- teacher_edit.ejs          (教員:編集入力)
-    |-- teacher_edit_confirm.ejs  (教員:編集確認)
-    |-- teacher_delete_confirm.ejs(教員:削除確認)
-    |-- wallet_list.ejs           (財布:一覧)
-    |-- wallet_detail.ejs         (財布:詳細)
-    |-- wallet_add.ejs            (財布:追加入力)
-    |-- wallet_add_confirm.ejs    (財布:追加確認)
-    |-- wallet_edit.ejs           (財布:編集入力)
-    |-- wallet_edit_confirm.ejs   (財布:編集確認)
-    +-- wallet_delete_confirm.ejs (財布:削除確認)
-\end{lstlisting}
+\begin{figure}[H]
+\renewcommand*\DTstylecomment{\rmfamily\color{black}\footnotesize\itshape} % コメントのスタイル調整（任意）
+\dirtree{%
+.1 webpro\_06/.
+.2 app\_report.js \DTcomment{サーバサイドプログラム}.
+.2 package.json \DTcomment{依存ライブラリ定義}.
+.2 node\_modules/ \DTcomment{インストールされたライブラリ}.
+.2 public/ \DTcomment{静的ファイル用ディレクトリ}.
+.3 style.css \DTcomment{共通スタイルシート}.
+.3 top.html \DTcomment{トップページ}.
+.2 views/ \DTcomment{EJSファイル用ディレクトリ}.
+.3 result\_list.ejs \DTcomment{成績:一覧}.
+.3 result\_detail.ejs \DTcomment{成績:詳細}.
+.3 result\_add.ejs \DTcomment{成績:追加入力}.
+.3 result\_add\_confirm.ejs \DTcomment{成績:追加確認}.
+.3 result\_edit.ejs \DTcomment{成績:編集入力}.
+.3 result\_edit\_confirm.ejs \DTcomment{成績:編集確認}.
+.3 result\_delete\_confirm.ejs \DTcomment{成績:削除確認}.
+.3 teacher\_list.ejs \DTcomment{教員:一覧}.
+.3 teacher\_detail.ejs \DTcomment{教員:詳細}.
+.3 teacher\_add.ejs \DTcomment{教員:追加入力}.
+.3 teacher\_add\_confirm.ejs \DTcomment{教員:追加確認}.
+.3 teacher\_edit.ejs \DTcomment{教員:編集入力}.
+.3 teacher\_edit\_confirm.ejs \DTcomment{教員:編集確認}.
+.3 teacher\_delete\_confirm.ejs \DTcomment{教員:削除確認}.
+.3 wallet\_list.ejs \DTcomment{財布:一覧}.
+.3 wallet\_detail.ejs \DTcomment{財布:詳細}.
+.3 wallet\_add.ejs \DTcomment{財布:追加入力}.
+.3 wallet\_add\_confirm.ejs \DTcomment{財布:追加確認}.
+.3 wallet\_edit.ejs \DTcomment{財布:編集入力}.
+.3 wallet\_edit\_confirm.ejs \DTcomment{財布:編集確認}.
+.3 wallet\_delete\_confirm.ejs \DTcomment{財布:削除確認}.
+}
+\caption{ディレクトリ構造}
+\label{fig:dir_tree}
+\end{figure}
 
 \subsection{システム構造とURL設計}
 本システムは，\texttt{app\_report.js} を実行し，\texttt{views/} ディレクトリ内のEJSファイルをもとにHTMLを生成して表示する構成をとっている．
@@ -334,7 +376,7 @@ webpro_06/
 \hline
 \end{tabular}
 \end{table}
-
+\clearpage
 各システムのリソース名は以下の通りである．
 \begin{itemize}
     \item 成績管理システム: \texttt{result}
@@ -362,6 +404,7 @@ webpro_06/
     \item \textbf{編集後}: 変更内容を即座に確認できるようにするため，そのデータの「詳細表示画面」へリダイレクトする．
 \end{itemize}
 
+\clearpage
 \subsection{データ構造}
 各システムは，オブジェクトの配列としてデータを管理している．それぞれのデータ構造を以下に示す．
 

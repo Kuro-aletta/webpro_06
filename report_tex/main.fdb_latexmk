@@ -1,10 +1,10 @@
 # Fdb version 4
-["dvipdf"] 1766920109.00266 "main.dvi" "main.pdf" "main" 1766920114.85039 0
-  "main.dvi" 1766920108.95442 56848 88e57b80eb7558c535bb1572c95e0c34 "latex"
+["dvipdf"] 1766928057.23859 "main.dvi" "main.pdf" "main" 1766928063.47414 0
+  "main.dvi" 1766928057.18674 72472 0dc21464b33ff0328e07ff72e8574734 "latex"
   (generated)
   "main.pdf"
   (rewritten before read)
-["latex"] 1766920105.10131 "main.tex" "main.dvi" "main" 1766920114.84826 0
+["latex"] 1766928053.25452 "main.tex" "main.dvi" "main" 1766928063.47283 0
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tctt1095.tfm" 1136768653 1536 52374f37d7a013fe5a15c958e7ebe485 ""
@@ -29,12 +29,15 @@
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1136768653 1124 6c73e740cf17375f03eec0ee63599741 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1136768653 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm" 1136768653 768 1321e9409b4137d6fb428ac9dc956269 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm" 1136768653 772 9a936b7f5e2ff0557fce0f62822f0bbf ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/japanese-otf/nmlminb-h.tfm" 1320249963 504 e15e0ced49bc0fca57e32b1199da50ac ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/japanese-otf/nmlminb-v.tfm" 1320249963 504 90cc0bfc6764b11e5837e72f13617993 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/japanese-otf/nmlminr-h.tfm" 1320249963 504 e15e0ced49bc0fca57e32b1199da50ac ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/japanese-otf/nmlminr-v.tfm" 1320249963 504 90cc0bfc6764b11e5837e72f13617993 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/generic/dirtree/dirtree.sty" 1355443861 1883 4aee9c0e00b4a0c2729c07aa1ea41bad ""
+  "/usr/local/texlive/2025/texmf-dist/tex/generic/dirtree/dirtree.tex" 1355443861 5890 e9acda8da77544e04e1e6041a77a14c7 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty" 1359763108 5949 3f3fd50a8cc94c3d4cbf4fc66cd3df1c ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty" 1359763108 13829 94730e64147574077f8ecfea9bb69af4 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd" 1359763108 961 6518c6525a34feb5e8250ffa91731cff ""
@@ -80,6 +83,7 @@
   "/usr/local/texlive/2025/texmf-var/web2c/euptex/platex.fmt" 1745400855 3562352 6173979d03761f948dcbd009ddbea8b6 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
   "fig_web/404.png" 1766908238.54133 187043 f780aacf56a62f98e0980b2dbf2309b2 ""
+  "fig_web/URL.png" 1766922911.74073 367720 c5d07086ff04624d38ffdad849021df4 ""
   "fig_web/md.png" 1766899643.08886 204329 455a8630c189e2c0faf54eab181efb75 ""
   "fig_web/top.png" 1766908238.65446 376663 c85349ec592958b63d2f0338dfd282f6 ""
   "fig_web/wallet_add.png" 1766908239.72989 183960 e4084b83c55a250b78c9ac366ec4322e ""
@@ -100,10 +104,10 @@
   "fig_web/wallet_go_to_edit.png" 1766908238.96622 257871 e479a975280b9ffaf7e4ffcdbbb1e0ca ""
   "fig_web/wallet_list.png" 1766908238.75052 204595 4f055d8f7ddfe96f51188e61409cd1db ""
   "jex.cls" 1764220180.59609 29715 46896ad0734c07a6d8a549e6f6d54e90 ""
-  "main.aux" 1766920108.95165 8988 1623f9d17f142b25fef9f011353a5154 "latex"
-  "main.tex" 1766895588.87582 2062 64dab053b26214c727d49dd207f6cdf2 ""
-  "main.toc" 1766920108.95437 3252 e5c085864ecbd0efc8dba3be015926ce "latex"
-  "web.tex" 1766920099.22258 29703 0c8e3776fa74d3b086c04276f782ede8 ""
+  "main.aux" 1766928057.18389 9812 3be912929c04960eed708327258ddade "latex"
+  "main.tex" 1766927415.31294 2084 a10c30c43e09fa57db7bbed22c6d5ce9 ""
+  "main.toc" 1766928057.18668 3404 341800ed81ebe18370c706ab80a42028 "latex"
+  "web.tex" 1766928047.47184 32774 ecfc9e0e561af661f8c025579b6d304e ""
   (generated)
   "main.aux"
   "main.dvi"
